@@ -20,7 +20,7 @@ copy Power-Search.bat "C:\Power-Search"
 del Power-Search.ps1
 del Power-Search.bat
 echo Power-Search script copied to C:\Power-Search
-echo "Would you like to add Power-Search to PATH? Note: uses <setx> command, which can cause problems if you have a long PATH. DO NOT USE UNLESS YOU FULLY UNDERSTAND WHAT SETX DOES."
+echo "Would you like to add Power-Search to PATH?"
 :choice2
 set /p "q=Add Power-Search to PATH? [Y/n]:"
 if /I "%q%" EQU "Y" goto :path-install
@@ -28,10 +28,11 @@ if /I "%q%" EQU "n" goto :finish-install
 goto :choice2
 
 :path-install
-echo This requires administrative privligies. If you haven't already, please close this window and re-open the batch script as an administrator.
-cmd /c pause
-echo Working, this may take a minute...
-setx /M PATH "%PATH%;C:\Power-Search"
+echo Downloading add to PATH script...
+curl -o Add-To-PATH.ps1 https://power-search.netlify.app/Add-To-PATH.ps1
+echo Running script...
+powershell -file Add-To-PATH.ps1
+del Add-To-PATH.ps1
 echo Finished!
 echo If you haven't gotten any errors, congratulations! Power-Search should be installed.
 echo "To use it, just do <Power-Search [Search]>! If you get an error about scripts being disabled on your system, run <powershell Set-ExecutionPolicy Unrestricted> as administrator."
