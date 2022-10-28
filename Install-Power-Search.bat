@@ -40,7 +40,7 @@ cmd /c pause
 exit
 
 :finish-install
-echo Very fair choice, setx can be weird. No matter, if you haven't encountered any errors yet, you're finished! Power-Search should be installed.
+echo Very fair choice, PATH can be weird. No matter, if you haven't encountered any errors yet, you're finished! Power-Search should be installed.
 echo "To use Power-Search, just do <C:/Power-Search/Power-Search [Search]>. Since it's not added to PATH it's a bit finicky, but it should be useable. If you get an error about scripts being disabled on your system, run <powershell Set-ExecutionPolicy Unrestricted> as administrator. Thanks for installing :D"
 cmd /c pause
 exit
