@@ -14,11 +14,14 @@ goto :choice
 echo Downloading...
 curl -o Power-Search.ps1 https://power-search.netlify.app/Power-Search.ps1
 curl -o Power-Search.bat https://power-search.netlify.app/Power-Search.bat
+curl -o powser.bat https://power-search.netlify.app/powser.bat
 mkdir "C:\Power-Search" 
 copy Power-Search.ps1 "C:\Power-Search" 
 copy Power-Search.bat "C:\Power-Search" 
+copy powser.bat "C:\Power-Search"
 del Power-Search.ps1
 del Power-Search.bat
+del powser.bat
 echo Power-Search script copied to C:\Power-Search
 echo "Would you like to add Power-Search to PATH?"
 :choice2
@@ -35,12 +38,12 @@ powershell -file Add-To-PATH.ps1
 del Add-To-PATH.ps1
 echo Finished!
 echo If you haven't gotten any errors, congratulations! Power-Search should be installed.
-echo "To use it, just do <Power-Search [Search]>! If you get an error about scripts being disabled on your system, run <powershell Set-ExecutionPolicy Unrestricted> as administrator."
+echo "To use it, just do <Power-Search [Search]>! If you get an error about scripts being disabled on your system, run <powershell Set-ExecutionPolicy Unrestricted> as administrator. If you prefer, the <powser [Search]>" command also will run the script, allowing for an easier command to remember and one that can be typed without a pesky dash."
 cmd /c pause
 exit
 
 :finish-install
-echo Very fair choice, PATH can be weird. No matter, if you haven't encountered any errors yet, you're finished! Power-Search should be installed.
+echo Very fair choice, setx can be weird. No matter, if you haven't encountered any errors yet, you're finished! Power-Search should be installed.
 echo "To use Power-Search, just do <C:/Power-Search/Power-Search [Search]>. Since it's not added to PATH it's a bit finicky, but it should be useable. If you get an error about scripts being disabled on your system, run <powershell Set-ExecutionPolicy Unrestricted> as administrator. Thanks for installing :D"
 cmd /c pause
 exit
