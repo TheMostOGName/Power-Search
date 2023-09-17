@@ -8,5 +8,7 @@ Just [download](https://power-search.netlify.app/Install-Power-Search.bat) the i
 
 ## Usage
 With PATH: `Power-Search [Search]`
+Alternative: `powser [Search]`
 
 Without PATH: `C:/Power-Search/Power-Search [Search]`
+Alternative: `C:/Power-Search/powser [Search]`
