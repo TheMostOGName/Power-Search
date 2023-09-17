@@ -1,5 +1,3 @@
-Clear-Host
-
 #Check to see if the user already inputed a search as args, if not prompt the user for a search
 if (!$args[0]) {
     $Search = Read-Host -Prompt 'Input your search'
@@ -11,7 +9,7 @@ else {
     $Search = [system.String]::Join(" ", $args)
 }
 
-Clear-Host
+
 #Output the search terms
 Write-Output "${Search}:"
 #Set the url
@@ -41,13 +39,57 @@ $Response = ($Response | Select-Object -First ($Response.count -3))
 
 #Remove Repeated Results
 $Response = ($Response | Get-Unique) 
+
+
+# Filter out empty lines
+$Response = $Response | Where-Object { $_ -ne "" }
+
+# Initialize an array to store the links
+$LinkVariables = @()
+
+# Loop through the $Response variable to assign links to callable variables
+for ($i = 1; $i -le $Response.Count; $i++) {
+    # Create a variable name for the link (e.g., $Link1, $Link2, ...)
+    $variableName = "Link$i"
+    
+    # Set the variable with the link content
+    Set-Variable -Name $variableName -Value $Response[$i - 1] -Scope Script
+    
+    # Add the variable name to the array
+    $LinkVariables += $variableName
+}
+
+# Output the results with line numbers
+for ($i = 0; $i -lt $Response.Count; $i++) {
+    $lineNumber = $i + 1
+    Write-Host "$lineNumber. $($Response[$i])"
+}
+
+$Yn = Read-Host -Prompt "Open a result in browser? (Y/n)"
+
+if ($Yn -eq "Y") {
+    $LinkNum = Read-Host -Prompt "Enter link number"
+    if ([int]$LinkNum -ge 1 -and [int]$LinkNum -le $Response.Count) {
+        $SelectedLink = $Response[$LinkNum - 1]
+        Write-Host "Opening link ${LinkNum}: $SelectedLink"
+        Start-Process $SelectedLink
+    } else {
+        Write-Host "Invalid link number. Please enter a valid link number."
+    }
+}
+else {
+    exit
+}
+
+# Output the list of variable names (optional)
+# Write-Host "Variable Names: $($LinkVariables -join ', ')"
  
 #Output the results and delete the file
-$Response
+# $Response
 
 
 #Pause the script if there were no args, this sometimes means the script was opened in the file explorer and will automatically close the window 
 #once finished. 
-if (1 -eq $NoArgs) {
-    cmd /c pause
-}
+## if (1 -eq $NoArgs) {
+##    cmd /c pause
+## }
